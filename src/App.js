@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import { QRCode } from "react-qrcode-logo";
 
 function App() {
-  // List of possible system errors
+  // List of possible system errors with updated URL
   const systemErrors = [
     {
       code: "120",
       message: "Error 120: Network timeout",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0021579",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
     {
       code: "051",
       message: "Error 051: Authentication failed",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0021579",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
     {
       code: "43",
       message: "Error 43: Server unavailable",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0021579",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
   ];
 
