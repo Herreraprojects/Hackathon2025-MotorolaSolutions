@@ -1,10 +1,6 @@
 Getting Started with Create React App
 This project was bootstrapped with Create React App.
 
-Pizza menu built from React.js
-
-image
-
 Available Scripts
 In the project directory, you can run:
 
