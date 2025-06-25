@@ -1,4 +1,9 @@
-
+# Summary:
+This application simulates our implementation of the QR Code Troubleshooting tool utilizing React library
+* Application generates random error
+* When application detects error, shows error details and a QR code linking to support.
+* Occasionally resets to "system ready" status.
+* Uses React hooks for state and side effects.
 
 # 1. Imports
 
@@ -111,12 +116,6 @@ export default App;
 ```
 * Exports the App component for use in other parts of the app.
        
-# Summary:
-This React component simulates a system status monitor that:
-* Randomly displays errors every 10 seconds (with a 70% chance).
-* Shows error details and a QR code linking to support.
-* Occasionally resets to "system ready" status.
-* Uses React hooks for state and side effects.
 
 
 
