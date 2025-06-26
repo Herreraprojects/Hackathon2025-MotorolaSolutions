@@ -36,9 +36,9 @@ This application simulates our implementation of the QR Code Troubleshooting too
 ];
 ```
 * An array of error objects, each with:
-* code: error code string
-* message: description of the error
-* url: link to support/knowledge base article
+* code - error code string
+* message - description of the error
+* url - link to support/knowledge base article
 
 # 4. State Hook: currentError
 
@@ -83,32 +83,170 @@ useEffect(() => {
 # 6. Render Output
 
 ```
-return ( 
-  <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-    <h1>System Status Monitor</h1> 
-    {currentError ? ( 
-    // When there's an error
-      <div style={{ marginTop: "20px", color: "red", textAlign: "center" }}>
-        <h2>System Error {currentError.code}</h2>
-        <p>{currentError.message}</p>
-        <p>Please scan the QR code below for assistance:</p>
-        <QRCode value={currentError.url} size={128} /> 
+ // Effect to calculate QR code size based on container dimensions
+  useEffect(() => {
+    const calculateQrCodeSize = () => {
+      if (contentRef.current) {
+        const contentWidth = contentRef.current.offsetWidth; // container width
+        const contentHeight = contentRef.current.offsetHeight; // container height
+
+        // Use the smaller of width or height to ensure QR code fits squarely
+        // Multiply by 0.4 (40%) to get a size relative to container
+        const desiredSize = Math.min(contentWidth, contentHeight) * 0.4;
+
+        // Enforce a minimum size of 80px for readability
+        setQrCodePixelSize(Math.max(80, Math.floor(desiredSize)));
+      }
+    };
+
+    // Calculate size initially
+    calculateQrCodeSize();
+
+    // Recalculate size on window resize for responsiveness
+    window.addEventListener("resize", calculateQrCodeSize);
+    return () => window.removeEventListener("resize", calculateQrCodeSize);
+  }, [currentError]); // Re-run when currentError changes, as container size may change
+
+  // Aspect ratio for the background image (width / height)
+  const m500AspectRatio = 436 / 333;
+
+  // Fine-tuned positioning and sizing percentages for the overlay content
+  const screenTop = 17; // % from top (roughly 75px from top)
+  const screenLeft = 15; // % from left (roughly 78px from left)
+  const screenWidth = 75; // % width of the overlay (roughly 278px)
+  const screenHeight = 55; // % height of the overlay (roughly 163px)
+  const screenBorderRadius = 4; // Border radius as percentage of overlay size
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh", // Full viewport height
+        backgroundColor: "#f0f0f0", // Light background color
+        padding: "20px",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Main container with background image and aspect ratio */}
+      <div
+        style={{
+          position: "relative",
+          width: "90%", // responsive width
+          maxWidth: "800px", // limit maximum width
+          aspectRatio: m500AspectRatio, // keep aspect ratio
+          backgroundImage: `url(${m500Image})`, // background image
+          backgroundSize: "contain", // scale image to contain
+          backgroundRepeat: "no-repeat", // no repeat
+          backgroundPosition: "center", // center image
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {/* Overlay content container positioned over the background image */}
+        <div
+          ref={contentRef} // attach ref for size calculations
+          style={{
+            position: "absolute",
+            top: `${screenTop}%`, // position from top
+            left: `${screenLeft}%`, // position from left
+            width: `${screenWidth}%`, // width of overlay
+            height: `${screenHeight}%`, // height of overlay
+            borderRadius: `${screenBorderRadius}%`, // rounded corners
+            backgroundColor: "black", // dark background
+            color: "white", // text color
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            boxSizing: "border-box",
+            overflow: "hidden", // prevent overflow
+          }}
+        >
+          {/* Conditional rendering based on whether there's an active error */}
+          {currentError ? (
+            // When there is an error, show error info and QR code
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between", // space items vertically
+                alignItems: "center",
+                width: "100%",
+                height: "100%",
+                padding: "2%", // small padding inside overlay
+                boxSizing: "border-box",
+              }}
+            >
+              {/* Error header and message */}
+              <div style={{ flexShrink: 0 }}>
+                <h2 style={{ fontSize: "1.8vw", margin: "0.5vw 0" }}>
+                  System Error {currentError.code}
+                </h2>
+                <p style={{ fontSize: "1.2vw", margin: "0.3vw 0" }}>
+                  {currentError.message}
+                </p>
+                <p style={{ fontSize: "0.9vw", margin: "0.2vw 0" }}>
+                  Scan for assistance:
+                </p>
+              </div>
+              {/* QR code section, only if size > 0 */}
+              {qrCodePixelSize > 0 && (
+                <div
+                  style={{
+                    marginTop: "0.5vw",
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center", // center QR code horizontally
+                    minHeight: qrCodePixelSize, // ensure enough space
+                  }}
+                >
+                  <QRCode
+                    value={currentError.url} // URL to encode in QR
+                    size={qrCodePixelSize} // dynamically calculated size
+                    qrStyle="dots" // style of QR code dots
+                    eyeRadius={5} // rounded eyes
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            // When no active error, show the "all systems ready" message
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100%",
+                padding: "2%",
+                boxSizing: "border-box",
+              }}
+            >
+              <h2 style={{ fontSize: "1.8vw", margin: "0.5vw 0" }}>
+                All systems are ready!
+              </h2>
+              <p style={{ fontSize: "1.2vw", margin: "0.3vw 0" }}>
+                No active errors detected.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    ) : (  
-      // When system is ready (no errors)
-      <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <h2>All systems are ready!</h2>
-      </div>
-    )}
-  </div> 
-);
+    </div>
+  );
 
 ```
-* Main container with padding and font styling.
-* Displays title.
-* If currentError exists:
-* Shows error code, message, and a QR code linking to support.
-* If null: Shows "All systems are ready!" 
+* The component uses a useEffect hook to dynamically size the QR code based on container dimensions, ensuring responsiveness.
+* The main layout consists of a background image with a carefully positioned overlay.
+* Inside the overlay, content varies depending on whether there's an active error.
+* When an error exists, it displays error details and a QR code linking to additional info.
+* When no errors, it shows a positive status message.
 
 # 7. Export
 ```
