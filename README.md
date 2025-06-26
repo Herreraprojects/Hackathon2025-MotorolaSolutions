@@ -17,22 +17,43 @@ This application simulates our implementation of the QR Code Troubleshooting too
 * Defines the React functional component App.
 
 # 3. System Errors List
-``` const systemErrors = [
-   {
-    code: "120",
-    message: "Error 120: Network timeout",
-    url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0021579",
-  },
-  {
-    code: "051",
-    message: "Error 051: Authentication failed",
-    url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0021579",
-  },
-  {
-    code: "43",
-    message: "Error 43: Server unavailable",
-    url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0021579",
-  },
+```
+ const systemErrors = [
+    {
+      code: "120",
+      message: "Error 120: Upgrade Failure",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
+    {
+      code: "051",
+      message: "Error 051: Authentication failed",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
+    {
+      code: "43",
+      message: "Error 43: Server unavailable",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
+    {
+      code: "200",
+      message: "Error 200: Data corruption detected",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
+    {
+      code: "301",
+      message: "Error 301: Invalid configuration file",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
+    {
+      code: "503",
+      message: "Error 503: Service temporarily overloaded",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
+    {
+      code: "999",
+      message: "Error 999: Unknown critical system failure",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
+    },
 ];
 ```
 * An array of error objects, each with:
