@@ -7,7 +7,7 @@ function App() {
   const systemErrorsData = [
     {
       code: "120",
-      message: "Error 120: Network timeout",
+      message: "Error 120: Upgrade Failure",
       url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
     {
@@ -23,22 +23,22 @@ function App() {
     {
       code: "200",
       message: "Error 200: Data corruption detected",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037059",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
     {
       code: "301",
       message: "Error 301: Invalid configuration file",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037060",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
     {
       code: "503",
       message: "Error 503: Service temporarily overloaded",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037061",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
     {
       code: "999",
       message: "Error 999: Unknown critical system failure",
-      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037062",
+      url: "https://cmsosnow.service-now.com/kb?id=kb_article_view&sysparm_article=KB0037058",
     },
   ];
 
