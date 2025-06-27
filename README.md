@@ -1,3 +1,7 @@
+
+![Error 120](https://github.com/user-attachments/assets/d5f39442-359a-4934-95ad-8a93bce19a37)
+
+
 # Summary:
 This application simulates our implementation of the QR Code Troubleshooting tool utilizing React library
 * Application generates random error
